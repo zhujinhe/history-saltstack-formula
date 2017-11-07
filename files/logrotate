@@ -1,0 +1,17 @@
+{%- from "history/map.jinja" import history with context -%}
+
+{{ history.log_directory }}/{{ history.log_file }}
+{
+	{{ history.rotate_frequency }}
+	prerotate
+    /usr/bin/chattr -a {{ history.log_directory }}/{{ history.log_file }}
+    endscript
+    postrotate
+    /usr/bin/chattr +a {{ history.log_directory }}/{{ history.log_file }}
+    endscript
+	rotate	{{ history.rotate_keep }}
+	dateext
+	missingok
+	nocompress
+	create 222 root root
+}
